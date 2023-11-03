@@ -1,0 +1,62 @@
+#for an unbounded knapsack problem 
+#we define a get_max_value function and a subsequent get_max_knapsack function
+#to extract the max value and return it
+#we have to initialise an array of size n+1 by c+1 for memoization purposes
+
+def get_max_val(C, weight, value, n, arr):
+    #base case:
+    if n == 0 or C == 0:
+        return 0
+    
+    if arr[n][C] != -1:
+        return arr[n][C]
+    
+    # if weight is more than current knapsack weight then we must exclude this item
+    if C < weight[n - 1]:
+        max_value = get_max_val(C, weight, value, n - 1, arr)
+        arr[n][C] = max_value
+        return max_value
+    else:
+        # pick the Nth item and add its value in result
+        value_with_nth_item = get_max_val(C - weight[n - 1], weight, value, n, arr) + value[n - 1]
+        
+        # exclude the Nth item and go for n-1 items
+        value_without_nth_item = get_max_val(C, weight, value, n - 1, arr)
+        
+        # get the maximum of both values
+        max_value = max(value_with_nth_item, value_without_nth_item)
+        arr[n][C] = max_value
+        return max_value
+
+def get_maximum_knapsack(C, weight, value, n):
+    # Initialize 2D array of size N + 1 and C + 1 with value -1
+    arr = []
+    for i in range(n + 1):
+        inner_list = []
+    for j in range(C + 1):
+        inner_list.append(-1)
+        arr.append(inner_list)
+
+    return get_max_val(C, weight, value, n, arr)
+
+
+#now we have the driver code to run on the provided knapsack parameters:
+#for part 1:
+
+C = 14
+pi = [7, 6, 9] 
+wi = [4, 6, 8] 
+n = len(val) 
+
+print(get_maximum_knapsack(C, wi, pi, n))
+#this gives us an max value of 21
+
+#for part 2:
+
+C = 14
+pi = [7, 6, 9] 
+wi = [5, 6, 8] 
+n = len(val) 
+
+print(get_maximum_knapsack(C, wi, pi, n))
+#this gives us a max value of 16

@@ -1,0 +1,15 @@
+we identify this to be an unbounded knapsack problem since there are an infinite number of each type of object
+
+here is the pseudocode:
+Function bottom_up_knapsack(C, weights, profits, n):
+    Initialize an array dp of size C+1 with all values set to 0
+
+    FOR i from 0 to C:
+        FOR j from 0 to n-1:
+            IF weights[j] <= i:
+                dp[i] = maximum of dp[i] and dp[i-weights[j]] + profits[j]
+
+    RETURN dp[C]
+
+Here is the explanation:
+1)for initialisation: 

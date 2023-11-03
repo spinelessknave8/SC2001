@@ -11,5 +11,16 @@ Function bottom_up_knapsack(C, weights, profits, n):
 
     RETURN dp[C]
 
-Here is the explanation:
-1)for initialisation: 
+ Here is the explanation:
+1) for initialisation: 
+    We first initialize a DP table (a 1D array called dp), which will store the maximum profit for each possible weight from 0     to C (capacity of the knapsack).
+    Initially, all entries in the DP table are set to 0, indicating zero profit.
+2) for outer loop:
+    The outer loop iterates through all possible weights from 0 to C. Each iteration determines the maximum profit for a             knapsack with capacity i.   
+3) for inner loop:
+    The inner loop iterates through all items. For each item, we check if the item's weight (weights[j]) is less than or         equal to the current capacity (i). If it is, this means the item can be added to the knapsack without exceeding its          capacity.
+     For each capacity, we are considering all items repeatedly, allowing for multiple inclusions of the same item if             necessary.
+4) update the DP table:
+    the maximum profit for dp[i] is added to the table for memoization purposes
+5) Result:
+    dp[C] will hold the maximum profit for a knapsack of capacity C, which is the value that is returned.

@@ -1,0 +1,29 @@
+#bottom_up is generally a lot faster because it does not include the overhead of recursion
+#the dp table here refers to a dynamic programming table to perform memoization
+
+def bottom_up_knapsack(C, wi, pi, n):
+    # create a table to store solutions of subproblems 
+    dp = [0 for _ in range(C + 1)]
+
+    # fill the dp table in a bottom-up manner
+    for i in range(C + 1):
+        for j in range(n):
+            if wi[j] <= i:
+                dp[i] = max(dp[i], dp[i - wi[j]] + pi[j])
+
+    return dp[C]
+
+# driver code
+C1 = 14
+pi1 = [7, 6, 9]
+wi1 = [4, 6, 8]
+n1 = len(pi1)
+
+print(bottom_up_knapsack(C1, wi1, pi1, n1))  # Expected output: 21
+
+C2 = 14
+pi2 = [7, 6, 9]
+wi2 = [5, 6, 8]
+n2 = len(pi2)
+
+print(bottom_up_knapsack(C2, wi2, pi2, n2))  # Expected output: 16

@@ -1,0 +1,40 @@
+//i got chatgpt to help me print out a table to track the dp array better
+//but otherwise it's essentially just the same function lol
+
+def bottom_up_knapsack(C, wi, pi, n):
+    # table created with base case explicitly set
+    dp = [0] * (C + 1)
+    
+    # print table header for capacities
+    print(f"{'Capacity':>10}", end="")
+    for cap in range(C + 1):
+        print(f"{cap:>5}", end="")
+    print()  # Newline after the header
+
+    # fill the dp table in a bottom-up manner
+    for i in range(1, C + 1):
+        for j in range(n):
+            if wi[j] <= i:
+                dp[i] = max(dp[i], dp[i - wi[j]] + pi[j])
+
+        # Print the current state of the dp table after each capacity increment
+        if i == 1:  # To include the base case of capacity 0
+            print(f"{'Base Case':>10}", end="")
+            for value in dp:
+                print(f"{value:>5}", end="")
+            print()
+        print(f"{f'Cap {i}':>10}", end="")  # Label for each row
+        for value in dp:
+            print(f"{value:>5}", end="")
+        print()  # Newline after each row
+
+    # Finally, return the maximum value for the full capacity
+    return dp[C]
+
+# Example usage:
+C = 14  # example capacity
+wi = [4, 6, 8]  # example weights
+pi = [7, 6, 9]  # example profits
+n = len(wi)   # number of items
+
+print("Maximum value in Knapsack =", bottom_up_knapsack(C, wi, pi, n))
